@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1792" viewBox="0 0 1024 1792">
+  <rect width="1024" height="1792" fill="#1a1a2e"/>
+  <g transform="translate(512,750)" fill="#e94560">
+    <circle cx="-120" cy="-180" r="60"/>
+    <circle cx="120" cy="-180" r="60"/>
+    <ellipse cx="0" cy="0" rx="200" ry="220"/>
+    <circle cx="-70" cy="-30" r="25" fill="#1a1a2e"/>
+    <circle cx="70" cy="-30" r="25" fill="#1a1a2e"/>
+    <rect x="-80" y="80" width="160" height="20" rx="10" fill="#1a1a2e"/>
+  </g>
+  <text x="512" y="1100" text-anchor="middle" font-family="sans-serif" font-size="96" font-weight="bold" fill="#eee">沼澤哥布林</text>
+  <text x="512" y="1250" text-anchor="middle" font-family="monospace" font-size="72" fill="#e94560">ENTJ</text>
+</svg>
