@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export type GoblinType = 
   | 'ISFP' | 'ENTP' | 'ESTJ' | 'ISTJ' 
@@ -58,10 +59,11 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
 
         {/* Image Section */}
         <div className="relative mx-8 aspect-square border-4 border-[#3d2b1f] overflow-hidden bg-neutral-900 group-hover:scale-[1.02] transition-transform duration-500">
-          <img 
+          <Image 
             src={imageUrl} 
             alt={data.name}
-            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            fill
+            className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
           />
           <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
         </div>

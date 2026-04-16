@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export interface Question {
@@ -53,16 +53,11 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 export const useGoblinQuiz = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions] = useState<Question[]>(() => shuffleArray(RAW_QUESTIONS));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [isFinished, setIsFinished] = useState(false);
   const router = useRouter();
-
-  // Initialize shuffled questions on mount
-  useEffect(() => {
-    setQuestions(shuffleArray(RAW_QUESTIONS));
-  }, []);
 
   const handleAnswer = (type: string) => {
     if (isFinished) return;
