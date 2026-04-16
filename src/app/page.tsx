@@ -3,8 +3,6 @@ import { buildPlatformJsonLd } from "@/shared/lib/seo";
 import { ProfileSection } from "@/widgets/profile-section/ui/profile-section";
 import { VenueDetail } from "@/widgets/venue-detail/ui/venue-detail";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
   const venues = await getFeaturedVenues();
   const [featuredVenue] = venues;

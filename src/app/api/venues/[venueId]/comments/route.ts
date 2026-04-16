@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return [{ venueId: "1" }, { venueId: "2" }, { venueId: "3" }];
+}
+
 export async function GET(_: Request, { params }: { params: Promise<{ venueId: string }> }) {
   const { venueId } = await params;
 

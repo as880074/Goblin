@@ -1,22 +1,28 @@
-name: CI
+name: Deploy to GitHub Pages
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
   push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
-  ci:
-    name: Lint & Build
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Workflow fingerprint
+        run: echo "deploy-pages-pnpm-nextjs-v1"
+
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup pnpm
@@ -24,11 +30,11 @@ jobs:
         with:
           version: 10
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "pnpm"
+          node-version: 20
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -36,5 +42,19 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Resolve Next.js base path
+        run: |
+          if [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
+            echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
+          else
+            echo "NEXT_PUBLIC_BASE_PATH=/${{ github.event.repository.name }}" >> "$GITHUB_ENV"
+          fi
+
       - name: Build
         run: pnpm build
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out

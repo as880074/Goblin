@@ -1,6 +1,3 @@
-import { apiRequest } from "@/shared/api/client";
-import { getBaseUrl } from "@/shared/lib/env";
-
 export type Venue = {
   id: string;
   name: string;
@@ -8,20 +5,12 @@ export type Venue = {
   tags: string[];
 };
 
-export async function getFeaturedVenues(): Promise<Venue[]> {
-  return apiRequest<Venue[]>(`${getBaseUrl()}/api/venues/featured`, {
-    next: { revalidate: 1800 },
-    transform: (payload) => {
-      const data = payload as {
-        products: Array<{ id: number; title: string; category: string; brand?: string }>;
-      };
+const MOCK_VENUES: Venue[] = [
+  { id: "1", name: "Goblin Green Park", location: "Taipei", tags: ["Pet-friendly", "Park"] },
+  { id: "2", name: "Paws & Beans Cafe", location: "Taichung", tags: ["Pet-friendly", "Cafe"] },
+  { id: "3", name: "Wagging Trails", location: "Kaohsiung", tags: ["Pet-friendly", "Trail"] },
+];
 
-      return data.products.map((item) => ({
-        id: String(item.id),
-        name: item.title,
-        location: item.brand ?? "Community verified",
-        tags: ["Pet-friendly", item.category],
-      }));
-    },
-  });
+export async function getFeaturedVenues(): Promise<Venue[]> {
+  return MOCK_VENUES;
 }

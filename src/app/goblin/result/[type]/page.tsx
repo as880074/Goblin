@@ -8,8 +8,12 @@ const VALID_TYPES = [
   'ENFP', 'ESFJ', 'ESTP', 'ISFJ'
 ];
 
-export default function GoblinResultPage({ params }: { params: { type: string } }) {
-  const { type } = params;
+export function generateStaticParams() {
+  return VALID_TYPES.map((type) => ({ type: type.toLowerCase() }));
+}
+
+export default async function GoblinResultPage({ params }: { params: Promise<{ type: string }> }) {
+  const { type } = await params;
 
   if (!VALID_TYPES.includes(type.toUpperCase())) {
     return notFound();
