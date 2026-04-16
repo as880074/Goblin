@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { GOBLIN_REGISTRY, VALID_TYPES } from "@/entities/goblin/model/registry";
+import { GoblinAvatar } from "@/shared/ui/goblin-avatar";
 
 const FAQ_ITEMS = [
   { q: "G-MBTI 是什麼？又一個無聊測驗？", a: "別把它跟你在社群上轉的那些垃圾心理測驗搞混。G-MBTI 是戀愛地下城專屬的靈魂剝皮系統——用 16 種哥布林人格，把你在感情裡有多廢直接攤在陽光下。沒有正確答案，只有你不敢面對的真相。" },
@@ -106,10 +106,9 @@ export default function Home() {
               >
                 {/* Avatar */}
                 <div className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-neutral-800 border border-neutral-700">
-                  <Image
-                    src={`/assets/goblins/${type.toLowerCase()}.png`}
+                  <GoblinAvatar
+                    type={type}
                     alt={data.name}
-                    fill
                     className="object-cover"
                     sizes="80px"
                   />
