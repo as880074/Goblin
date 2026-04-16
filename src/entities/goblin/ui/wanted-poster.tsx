@@ -35,8 +35,8 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
         const file = new File([blob], `goblin-${typeLower}.png`, { type: 'image/png' });
         if (navigator.share && navigator.canShare?.({ files: [file] })) {
           await navigator.share({
-            title: `我的哥布林通緝令 — ${data.name}`,
-            text: `我在戀愛地下城的真實身份是「${data.name}」！快來測測你是哪種哥布林 🔥`,
+            title: `我的通緝令 — ${data.name}`,
+            text: `我在戀愛地下城的真實身份是「${data.name}」。你敢測嗎？還是心虛不敢面對自己有多廢？ 🔥`,
             files: [file],
           });
         } else {
@@ -56,7 +56,7 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 p-4 font-serif">
       {/* 9:16 Poster Canvas */}
-      <div ref={posterRef} className="relative aspect-[9/16] w-full max-w-md bg-[#e3d5b8] shadow-[20px_20px_60px_rgba(0,0,0,0.8)] border-[12px] border-[#3d2b1f] overflow-hidden group">
+      <div ref={posterRef} className="relative w-full max-w-md bg-[#e3d5b8] shadow-[20px_20px_60px_rgba(0,0,0,0.8)] border-[12px] border-[#3d2b1f] overflow-hidden group flex flex-col">
         
         {/* Parchment Texture Overlay */}
         <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/p6-dark.png')]" />
@@ -91,33 +91,33 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
         </div>
 
         {/* Poster Body */}
-        <div className="px-8 mt-6 space-y-4 text-[#3d2b1f]">
+        <div className="px-8 mt-6 space-y-3 text-[#3d2b1f]">
           <div>
             <span className="text-xs uppercase font-bold tracking-widest block opacity-70">Attribute / 屬性標籤</span>
-            <p className="text-lg font-black leading-tight">{data.tag}</p>
+            <p className="text-base font-black leading-tight">{data.tag}</p>
           </div>
 
           <div>
             <span className="text-xs uppercase font-bold tracking-widest block opacity-70">Special Skill / 必殺技</span>
-            <p className="text-lg font-bold italic">「{data.skill}」</p>
+            <p className="text-base font-bold italic">「{data.skill}」</p>
           </div>
 
           <div className="pt-2 border-t border-[#3d2b1f]/30">
-            <p className="text-sm leading-relaxed font-medium">
+            <p className="text-xs leading-relaxed font-medium">
               {data.description}
             </p>
           </div>
         </div>
 
         {/* Poster Footer */}
-        <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
+        <div className="px-8 pt-4 pb-8 mt-auto flex justify-between items-end">
           <div className="flex flex-col">
             <span className="text-[10px] uppercase font-bold tracking-widest opacity-60">Threat Level</span>
-            <span className="text-4xl font-black text-red-900 drop-shadow-sm">{data.rank}</span>
+            <span className="text-3xl font-black text-red-900 drop-shadow-sm">{data.rank}</span>
           </div>
           
           <div className="text-right">
-            <div className="w-16 h-16 bg-[#3d2b1f] flex items-center justify-center p-1 rounded-sm">
+            <div className="w-14 h-14 bg-[#3d2b1f] flex items-center justify-center p-1 rounded-sm">
               <div className="w-full h-full border border-[#e3d5b8] flex items-center justify-center">
                 <span className="text-[8px] text-[#e3d5b8] font-bold leading-none text-center">GOBLIN<br/>DNA</span>
               </div>
@@ -135,16 +135,16 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
         onClick={handleShare}
         className="mt-8 px-12 py-3 bg-red-900 text-white font-bold tracking-widest uppercase hover:bg-red-800 transition-colors shadow-lg"
       >
-        撤退並分享通緝令
+        承認罪狀並分享通緝令
       </button>
 
       {/* Navigation */}
       <div className="mt-4 flex gap-4 text-sm">
         <a href="/goblin/quiz" className="text-neutral-400 hover:text-red-500 transition-colors underline underline-offset-4">
-          重新測驗
+          不服？再測一次
         </a>
         <a href="/goblin/preview" className="text-neutral-400 hover:text-red-500 transition-colors underline underline-offset-4">
-          瀏覽全部哥布林
+          看看其他廢物
         </a>
       </div>
     </div>

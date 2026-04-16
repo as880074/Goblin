@@ -24,8 +24,8 @@ export default function GoblinPreviewDashboard() {
     <div className="min-h-screen bg-neutral-900 text-neutral-100 p-8 font-serif">
       <div className="max-w-4xl mx-auto">
         <header className="mb-12 border-b-4 border-red-900 pb-4">
-          <h1 className="text-4xl font-black italic tracking-tighter">LOVERS DUNGEON: GOBLIN ARCHIVE</h1>
-          <p className="text-neutral-400 mt-2 uppercase tracking-widest text-sm">地城圖鑑預覽中心 (資深 PM 審核專用)</p>
+          <h1 className="text-4xl font-black italic tracking-tighter">LOVERS DUNGEON: 戀愛廢物檔案室</h1>
+          <p className="text-neutral-400 mt-2 uppercase tracking-widest text-sm">以下每一隻都是社會的損失。如果你覺得都不像自己，那大概是每個都有點像。</p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -45,7 +45,7 @@ export default function GoblinPreviewDashboard() {
         </div>
 
         <footer className="mt-16 pt-8 border-t border-neutral-800 text-xs text-neutral-600">
-          <p>CONFIDENTIAL: PROJECT GOBLIN V1.2.0 | REPRODUCTION PROHIBITED</p>
+          <p>CLASSIFIED: PROJECT GOBLIN V1.2.0 | 你的感情就是這麼廉價</p>
         </footer>
       </div>
     </div>

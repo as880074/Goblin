@@ -21,7 +21,7 @@ export default function GoblinQuizPage() {
       {/* Header / Progress */}
       <header className="p-6 border-b border-red-900/30">
         <div className="max-w-xl mx-auto flex justify-between items-end mb-2">
-          <span className="text-xs font-black tracking-widest text-red-700 uppercase">Lovers Dungeon / 靈魂審判</span>
+          <span className="text-xs font-black tracking-widest text-red-700 uppercase">Lovers Dungeon / 靈魂剝皮室</span>
           <span className="text-xl font-black italic text-red-600">{currentIndex + 1} / {totalQuestions}</span>
         </div>
         <div className="max-w-xl mx-auto h-1.5 bg-neutral-900 overflow-hidden">
@@ -68,7 +68,7 @@ export default function GoblinQuizPage() {
       {/* Footer Decoration */}
       <footer className="p-12 text-center opacity-20">
         <div className="text-[10px] tracking-[0.5em] uppercase font-black">
-          May the dice be with you
+          遇到這點事就開始 emo，你是來搞笑的嗎？
         </div>
       </footer>
 
