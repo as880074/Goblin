@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export function GoblinAvatar({
   type,
   alt,
@@ -15,7 +17,7 @@ export function GoblinAvatar({
   sizes?: string;
 }) {
   const typeLower = type.toLowerCase();
-  const [src, setSrc] = useState(`/assets/goblins/${typeLower}.png`);
+  const [src, setSrc] = useState(`${basePath}/assets/goblins/${typeLower}.png`);
   const [error, setError] = useState(false);
 
   if (error) {
@@ -35,7 +37,7 @@ export function GoblinAvatar({
       sizes={sizes}
       onError={() => {
         if (src.endsWith('.png')) {
-          setSrc(`/assets/goblins/${typeLower}.svg`);
+          setSrc(`${basePath}/assets/goblins/${typeLower}.svg`);
         } else {
           setError(true);
         }

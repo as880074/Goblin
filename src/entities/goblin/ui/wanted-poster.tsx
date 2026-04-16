@@ -6,6 +6,7 @@ import { GOBLIN_REGISTRY, type GoblinType } from '../model/registry';
 
 export type { GoblinType } from '../model/registry';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const SHARE_PATH = '/goblin/result/';
 
 const getShareText = (name: string) =>
@@ -15,9 +16,9 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
   const data = GOBLIN_REGISTRY[type];
   const typeLower = type.toLowerCase();
   const resultUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}${SHARE_PATH}${typeLower}`
-    : `${SHARE_PATH}${typeLower}`;
-  const [imgSrc, setImgSrc] = useState(`/assets/goblins/${typeLower}.png`);
+    ? `${window.location.origin}${basePath}${SHARE_PATH}${typeLower}`
+    : `${basePath}${SHARE_PATH}${typeLower}`;
+  const [imgSrc, setImgSrc] = useState(`${basePath}/assets/goblins/${typeLower}.png`);
   const [imgError, setImgError] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -25,7 +26,7 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
 
   const handleImageError = () => {
     if (imgSrc.endsWith('.png')) {
-      setImgSrc(`/assets/goblins/${typeLower}.svg`);
+      setImgSrc(`${basePath}/assets/goblins/${typeLower}.svg`);
     } else {
       setImgError(true);
     }

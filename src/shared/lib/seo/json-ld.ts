@@ -7,7 +7,7 @@ export const buildPlatformJsonLd = (): JsonLdPayload => ({
   description: "Pet-friendly venue discovery platform",
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://goblin.example.com/search?q={search_term_string}",
+    target: "https://as880074.github.io/Goblin/search?q={search_term_string}",
     "query-input": "required name=search_term_string",
   },
 });
