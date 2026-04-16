@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { GOBLIN_REGISTRY, type GoblinType } from '../model/registry';
 
@@ -11,6 +11,7 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
   const typeLower = type.toLowerCase();
   const [imgSrc, setImgSrc] = useState(`/assets/goblins/${typeLower}.png`);
   const [imgError, setImgError] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
 
   const handleImageError = () => {
@@ -21,45 +22,53 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
     }
   };
 
-  const handleShare = async () => {
-    if (!posterRef.current) return;
+  const handleShare = useCallback(async () => {
+    if (!posterRef.current || sharing) return;
+    setSharing(true);
     try {
       const html2canvas = (await import('html2canvas')).default;
       const canvas = await html2canvas(posterRef.current, {
         scale: 2,
         backgroundColor: '#e3d5b8',
         useCORS: true,
+        allowTaint: false,
+        logging: false,
       });
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
-        const file = new File([blob], `goblin-${typeLower}.png`, { type: 'image/png' });
-        if (navigator.share && navigator.canShare?.({ files: [file] })) {
-          await navigator.share({
-            title: `我的通緝令 — ${data.name}`,
-            text: `我在戀愛地下城的真實身份是「${data.name}」。你敢測嗎？還是心虛不敢面對自己有多廢？ 🔥`,
-            files: [file],
-          });
-        } else {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `goblin-${typeLower}.png`;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-      }, 'image/png');
-    } catch {
-      /* user cancelled share or html2canvas not available */
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob(resolve, 'image/png')
+      );
+      if (!blob) throw new Error('Failed to create image');
+      const file = new File([blob], `goblin-${typeLower}.png`, { type: 'image/png' });
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({
+          title: `我的通緝令 — ${data.name}`,
+          text: `我在戀愛地下城的真實身份是「${data.name}」。你敢測嗎？還是心虛不敢面對自己有多廢？ 🔥`,
+          files: [file],
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `goblin-${typeLower}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') return;
+      console.error('Share failed:', err);
+      alert('截圖失敗，請長按海報手動儲存圖片');
+    } finally {
+      setSharing(false);
     }
-  };
+  }, [sharing, data.name, typeLower]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 p-4 font-serif">
       {/* 9:16 Poster Canvas */}
       <div ref={posterRef} className="relative w-full max-w-md bg-[#e3d5b8] shadow-[20px_20px_60px_rgba(0,0,0,0.8)] border-[12px] border-[#3d2b1f] overflow-hidden group flex flex-col">
         
-        {/* Parchment Texture Overlay */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/p6-dark.png')]" />
+        {/* Parchment Texture Overlay (CSS-based, no external resource) */}
+        <div className="absolute inset-0 opacity-[0.08] pointer-events-none" style={{ backgroundImage: 'repeating-conic-gradient(#3d2b1f 0% 25%, transparent 0% 50%)', backgroundSize: '4px 4px' }} />
         
         {/* Poster Header */}
         <div className="pt-10 pb-4 text-center">
@@ -73,9 +82,9 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
         </div>
 
         {/* Image Section */}
-        <div className="relative mx-8 aspect-square border-4 border-[#3d2b1f] overflow-hidden bg-neutral-900 group-hover:scale-[1.02] transition-transform duration-500">
+        <div className="relative mx-8 aspect-square border-4 border-[#3d2b1f] overflow-hidden bg-[#171717] group-hover:scale-[1.02] transition-transform duration-500">
           {imgError ? (
-            <div className="w-full h-full flex items-center justify-center text-neutral-500 text-sm">
+            <div className="w-full h-full flex items-center justify-center text-[#737373] text-sm">
               {data.name}
             </div>
           ) : (
@@ -102,7 +111,7 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
             <p className="text-base font-bold italic">「{data.skill}」</p>
           </div>
 
-          <div className="pt-2 border-t border-[#3d2b1f]/30">
+          <div className="pt-2 border-t" style={{ borderColor: 'rgba(61,43,31,0.3)' }}>
             <p className="text-xs leading-relaxed font-medium">
               {data.description}
             </p>
@@ -113,7 +122,7 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
         <div className="px-8 pt-4 pb-8 mt-auto flex justify-between items-end">
           <div className="flex flex-col">
             <span className="text-[10px] uppercase font-bold tracking-widest opacity-60">Threat Level</span>
-            <span className="text-3xl font-black text-red-900 drop-shadow-sm">{data.rank}</span>
+            <span className="text-3xl font-black text-[#7f1d1d]" style={{ filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.05))' }}>{data.rank}</span>
           </div>
           
           <div className="text-right">
@@ -133,9 +142,10 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
       {/* Share Button */}
       <button 
         onClick={handleShare}
-        className="mt-8 px-12 py-3 bg-red-900 text-white font-bold tracking-widest uppercase hover:bg-red-800 transition-colors shadow-lg"
+        disabled={sharing}
+        className="mt-8 px-12 py-3 bg-red-900 text-white font-bold tracking-widest uppercase hover:bg-red-800 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-wait"
       >
-        承認罪狀並分享通緝令
+        {sharing ? '生成通緝令中...' : '承認罪狀並分享通緝令'}
       </button>
 
       {/* Navigation */}
