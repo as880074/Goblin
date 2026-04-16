@@ -137,6 +137,16 @@ export const WantedPoster: React.FC<{ type: GoblinType }> = ({ type }) => {
       >
         撤退並分享通緝令
       </button>
+
+      {/* Navigation */}
+      <div className="mt-4 flex gap-4 text-sm">
+        <a href="/goblin/quiz" className="text-neutral-400 hover:text-red-500 transition-colors underline underline-offset-4">
+          重新測驗
+        </a>
+        <a href="/goblin/preview" className="text-neutral-400 hover:text-red-500 transition-colors underline underline-offset-4">
+          瀏覽全部哥布林
+        </a>
+      </div>
     </div>
   );
 };

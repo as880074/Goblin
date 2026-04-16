@@ -71,7 +71,7 @@ export const useGoblinQuiz = () => {
       setIsFinished(true);
       const result = calculateMBTI(newAnswers);
       // Pure Frontend: Calculate and Redirect
-      router.push(`/goblin/result/${result}`);
+      router.push(`/goblin/result/${result.toLowerCase()}`);
     }
   };
 
