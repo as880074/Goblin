@@ -1,2 +1,2 @@
 :HL["/Goblin/_next/static/chunks/07f6asxemn7hp.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"Dm7pJk5DV_C-kDD9wjXIH"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"5bX9nqfU0F-h4ppB_3xn5"}
