@@ -1,5 +1,6 @@
 const IOS_STORE = "https://apps.apple.com";
 const ANDROID_STORE = "https://play.google.com/store/apps";
+const APP_SCHEME = "goblin://";
 
 export const getDownloadUrl = (userAgent: string): string => {
   const normalizedUA = userAgent.toLowerCase();
@@ -15,4 +16,4 @@ export const getDownloadUrl = (userAgent: string): string => {
   return ANDROID_STORE;
 };
 
-export const buildVenueDeepLink = (venueId: string) => `ptalk://venues/${encodeURIComponent(venueId)}`;
+export const buildVenueDeepLink = (venueId: string) => `${APP_SCHEME}venues/${encodeURIComponent(venueId)}`;

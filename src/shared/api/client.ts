@@ -29,6 +29,20 @@ const toRequestBody = (body: unknown): BodyInit | undefined => {
 const shouldAttachJsonHeader = (body: unknown) =>
   body != null && !(typeof body === "string" || body instanceof FormData || body instanceof URLSearchParams);
 
+const parseResponsePayload = async (response: Response) => {
+  const rawPayload = await response.text();
+
+  if (!rawPayload) {
+    return { payload: null, parseError: null };
+  }
+
+  try {
+    return { payload: JSON.parse(rawPayload), parseError: null };
+  } catch (error) {
+    return { payload: rawPayload, parseError: error };
+  }
+};
+
 export async function apiRequest<TResponse>(
   input: string,
   options: RequestOptions<TResponse> = {},
@@ -44,13 +58,14 @@ export async function apiRequest<TResponse>(
     body: toRequestBody(body),
   });
 
-  const payload = await response.json().catch(() => null);
+  const { payload, parseError } = await parseResponsePayload(response);
 
   if (!response.ok) {
+    const fallbackMessage = parseError
+      ? `Request failed with status ${response.status}; unable to parse JSON response`
+      : `Request failed with status ${response.status}`;
     const message =
-      typeof payload === "object" && payload && "message" in payload
-        ? String(payload.message)
-        : `Request failed with status ${response.status}`;
+      typeof payload === "object" && payload && "message" in payload ? String(payload.message) : fallbackMessage;
 
     throw new ApiError(response.status, message, payload);
   }

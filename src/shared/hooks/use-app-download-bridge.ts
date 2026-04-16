@@ -4,18 +4,28 @@ import { useCallback } from "react";
 
 import { buildVenueDeepLink, getDownloadUrl } from "@/shared/lib/mobile/deep-link";
 
+const DEEP_LINK_TIMEOUT_MS = 1200;
+
 export const useAppDownloadBridge = () => {
   const openVenueInApp = useCallback((venueId: string) => {
     if (typeof window === "undefined") {
       return;
     }
 
-    const deepLink = buildVenueDeepLink(venueId);
-    window.location.href = deepLink;
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        window.clearTimeout(fallbackTimer);
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+    };
 
-    window.setTimeout(() => {
+    const fallbackTimer = window.setTimeout(() => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.open(getDownloadUrl(navigator.userAgent), "_blank", "noopener,noreferrer");
-    }, 1200);
+    }, DEEP_LINK_TIMEOUT_MS);
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.location.href = buildVenueDeepLink(venueId);
   }, []);
 
   return { openVenueInApp };
