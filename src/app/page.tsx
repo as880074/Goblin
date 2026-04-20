@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-serif">
       {/* ── Top Banner ── */}
-      <div className="bg-red-900/90 text-center py-2.5 px-4 text-sm">
+      <div className="bg-red-900/90 text-center py-2.5 px-4 text-xs sm:text-sm">
         <span className="inline-block bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider mr-2">NEW</span>
         <span className="text-red-100">16 張通緝令已解封——你的醜態即將公諸於世</span>
       </div>
@@ -26,7 +26,7 @@ export default function Home() {
             <span className="text-xl">⚔️</span>
             <span className="font-black text-lg tracking-tight">G-MBTI</span>
           </Link>
-          <div className="flex items-center gap-6 text-sm">
+          <div className="flex items-center gap-4 sm:gap-6 text-sm">
             <Link href="/goblin/quiz" className="text-neutral-400 hover:text-red-400 transition-colors">靈魂審判</Link>
             <Link href="/goblin/preview" className="text-neutral-400 hover:text-red-400 transition-colors">哥布林圖鑑</Link>
           </div>
@@ -34,21 +34,21 @@ export default function Home() {
       </nav>
 
       {/* ── Hero Section ── */}
-      <section className="max-w-5xl mx-auto px-4 pt-16 pb-20">
-        <div className="rounded-2xl border border-red-900/30 bg-neutral-900/60 p-8 md:p-12">
+      <section className="max-w-5xl mx-auto px-4 pt-10 sm:pt-16 pb-12 sm:pb-20">
+        <div className="rounded-2xl border border-red-900/30 bg-neutral-900/60 p-5 sm:p-8 md:p-12">
           {/* Badge */}
           <div className="inline-block bg-red-950/60 border border-red-900/40 rounded-full px-4 py-1 text-xs text-red-400 tracking-widest uppercase mb-6">
             戀愛地下城 · 靈魂剝皮室
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-4 sm:mb-6">
             <span className="text-red-500">G-MBTI</span> 哥布林人格審判<br className="hidden md:block" />
-            <span className="text-neutral-400">— 你在愛情裡是什麼垃圾？</span>
+            <span className="text-neutral-400 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">— 你在愛情裡是什麼垃圾？</span>
           </h1>
 
           {/* Description */}
-          <p className="text-lg text-neutral-400 max-w-2xl mb-10 leading-relaxed">
+          <p className="text-base sm:text-lg text-neutral-400 max-w-2xl mb-8 sm:mb-10 leading-relaxed">
             20 道地城情境拷問，把你的戀愛黑歷史扒得一乾二淨。<br />
             別裝了，點進來就代表你心虛。測完不准哭。
           </p>
@@ -78,7 +78,7 @@ export default function Home() {
           {/* CTA */}
           <Link
             href="/goblin/quiz"
-            className="inline-block bg-red-800 hover:bg-red-700 text-white font-black text-lg px-10 py-4 rounded-xl tracking-widest uppercase transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.3)]"
+            className="inline-block bg-red-800 hover:bg-red-700 text-white font-black text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl tracking-widest uppercase transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.3)] w-full sm:w-auto text-center"
           >
             我不怕，開始審判
           </Link>
@@ -86,7 +86,7 @@ export default function Home() {
       </section>
 
       {/* ── Goblin Gallery ── */}
-      <section className="max-w-5xl mx-auto px-4 pb-20">
+      <section className="max-w-5xl mx-auto px-4 pb-12 sm:pb-20">
         <div className="flex items-baseline gap-3 mb-2">
           <Link href="/goblin/preview" className="group flex items-baseline gap-2">
             <h2 className="text-3xl md:text-4xl font-black tracking-tight">戀愛廢物圖鑑</h2>

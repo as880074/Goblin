@@ -20,11 +20,11 @@ export default function GoblinPreviewDashboard() {
       </nav>
 
       {/* ── Header ── */}
-      <header className="max-w-5xl mx-auto px-4 pt-12 pb-8">
+      <header className="max-w-5xl mx-auto px-4 pt-8 sm:pt-12 pb-6 sm:pb-8">
         <div className="inline-block bg-red-950/60 border border-red-900/40 rounded-full px-4 py-1 text-xs text-red-400 tracking-widest uppercase mb-4">
           全 {VALID_TYPES.length} 種通緝犯
         </div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-3">戀愛廢物圖鑑</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight mb-3">戀愛廢物圖鑑</h1>
         <p className="text-neutral-500 text-sm">以下每一隻都是社會的損失。覺得都不像自己？那大概是每個都有點像。</p>
       </header>
 
